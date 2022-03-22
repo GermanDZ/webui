@@ -1,12 +1,9 @@
 # coding=utf-8
 """SCALE UI: feature tests."""
 
-import time
-from function import(
+from function import (
     wait_on_element,
     is_element_present,
-    attribute_value_exist,
-    wait_for_attribute_value,
     wait_on_element_disappear,
 )
 from pytest_bdd import (
@@ -15,6 +12,8 @@ from pytest_bdd import (
     then,
     when,
 )
+import pytest
+pytestmark = [pytest.mark.debug_test]
 
 
 @scenario('features/NAS-T1242.feature', 'Verify an encrypted pool can be created')
@@ -58,12 +57,14 @@ def the_pools_page_appears_click_create_pool(driver):
     assert wait_on_element(driver, 10, '//a[@ix-auto="button___POOL_CREATE"]', 'clickable')
     driver.find_element_by_xpath('//a[@ix-auto="button___POOL_CREATE"]').click()
 
+
 @then('the Pool Manager appears, enter encrypted_tank for pool name')
 def the_pool_manager_appears_enter_encrypted_tank_for_pool_name(driver):
     """the Pool Manager appears, enter encrypted_tank for pool name."""
     assert wait_on_element(driver, 7, '//div[contains(.,"Pool Manager")]')
     assert wait_on_element(driver, 10, '//input[@id="pool-manager__name-input-field"]', 'inputable')
     driver.find_element_by_xpath('//input[@id="pool-manager__name-input-field"]').send_keys('encrypted_tank')
+
 
 @then('click encryption and confirm popup')
 def click_encryption_and_confirm_popup(driver):
@@ -87,7 +88,6 @@ def click_a_drive_checkbox_and_press_the_right_arrow(driver):
     driver.find_element_by_xpath('//mat-checkbox[@id="pool-manager__force-submit-checkbox"]').click()
 
 
-
 @then('click create confirm the warning checkbox and click CREATE POOL')
 def click_create_confirm_the_warning_checkbox_and_click_create_pool(driver):
     """click create confirm the warning checkbox and click CREATE POOL."""
@@ -107,6 +107,7 @@ def click_create_confirm_the_warning_checkbox_and_click_create_pool(driver):
     assert wait_on_element(driver, 30, '//button[contains(text(),"Done")]', 'clickable')
     driver.find_element_by_xpath('//button[contains(text(),"Done")]').click()
     assert wait_on_element(driver, 10, '//h1[contains(.,"Storage")]')
+
 
 @then('the pool should be listed on the storage page')
 def the_pool_should_be_listed_on_the_storage_page(driver):

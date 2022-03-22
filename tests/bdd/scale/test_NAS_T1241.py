@@ -1,13 +1,10 @@
 # coding=utf-8
 """SCALE UI: feature tests."""
 
-import time
+
 from function import (
     wait_on_element,
-    is_element_present,
-    attribute_value_exist,
-    wait_for_attribute_value,
-    wait_on_element_disappear,
+    is_element_present
 )
 from pytest_bdd import (
     given,
@@ -15,11 +12,14 @@ from pytest_bdd import (
     then,
     when,
 )
+import pytest
+pytestmark = [pytest.mark.debug_test]
 
 
 @scenario('features/NAS-T1241.feature', 'Verify that Storage Import Disks Page Opens')
 def test_verify_that_storage_import_disks_page_opens():
     """Verify that Storage Import Disks Page Opens."""
+
 
 @given('the browser is open, the FreeNAS URL and logged in')
 def the_browser_is_open_the_freenas_url_and_logged_in(driver, nas_ip, root_password):
