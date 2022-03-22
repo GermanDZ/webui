@@ -1,13 +1,9 @@
 # coding=utf-8
 """SCALE UI: feature tests."""
 
-import time
-from function import(
+from function import (
     wait_on_element,
-    is_element_present,
-    attribute_value_exist,
-    wait_for_attribute_value,
-    wait_on_element_disappear,
+    is_element_present
 )
 from pytest_bdd import (
     given,
@@ -15,6 +11,9 @@ from pytest_bdd import (
     then,
     when,
 )
+import pytest
+pytestmark = [pytest.mark.debug_test]
+
 
 @scenario('features/NAS-T1244.feature', 'Verify locking and unlocking volume using passphrase')
 def test_verify_locking_and_unlocking_volume_using_passphrase():
@@ -97,7 +96,6 @@ def enter_abcd1234_and_confirm(driver):
     driver.find_element_by_xpath('//input[@ix-auto="input__Dataset Passphrase"]').send_keys("abcd1234")
     assert wait_on_element(driver, 5, '//button[@ix-auto="button__SAVE"]', 'clickable')
     driver.find_element_by_xpath('//button[@ix-auto="button__SAVE"]').click()
-
 
 
 @then('unlock the pool')
