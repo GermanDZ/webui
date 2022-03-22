@@ -1,6 +1,7 @@
 # coding=utf-8
 """SCALE UI: feature tests."""
 
+import time
 from function import (
     wait_on_element,
     is_element_present,
@@ -10,7 +11,7 @@ from pytest_bdd import (
     given,
     scenario,
     then,
-    when,
+    when
 )
 import pytest
 pytestmark = [pytest.mark.debug_test]
@@ -71,7 +72,7 @@ def set_key_type_to_passphrase(driver):
     driver.find_element_by_xpath('//mat-select').click()
     assert wait_on_element(driver, 5, '//mat-option[@role="option"]//span[contains(.,"Passphrase")]', 'clickable')
     driver.find_element_by_xpath('//mat-option[@role="option"]//span[contains(.,"Passphrase")]').click()
-    
+
 
 @then('enter acbd1234 and 1234abcd and verify that an error shows')
 def enter_acbd1234_and_1234abcd_and_verify_that_an_error_shows(driver):
@@ -109,6 +110,9 @@ def enter_abcd1234_for_both_fields_and_confirm_and_save(driver):
 @then('lock the pool when the pool page reloads')
 def lock_the_pool_when_the_pool_page_reloads(driver):
     """lock the pool when the pool page reloads."""
+    time.sleep(1)
+    assert wait_on_element(driver, 10, '//h1[contains(.,"Storage")]')
+    assert wait_on_element(driver, 10, '//div[contains(text(),"encrypted_tank")]')
     assert wait_on_element(driver, 5, '//tr[contains(.,"encrypted_tank")]//mat-icon[text()="more_vert"]', 'clickable')
     driver.find_element_by_xpath('//tr[contains(.,"tank")]//mat-icon[text()="more_vert"]').click()
     assert wait_on_element(driver, 4, '//button[normalize-space(text())="Lock"]', 'clickable')

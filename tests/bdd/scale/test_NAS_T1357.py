@@ -13,8 +13,6 @@ from pytest_bdd import (
     then,
     when
 )
-import pytest
-pytestmark = [pytest.mark.debug_test]
 
 
 @scenario('features/NAS-T1357.feature', 'Apps Page - Validate deleting a container image')
